@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hospital.server.dao.GuidanceDao">
+
+    <select id="getOrderUserMsg" parameterType="java.lang.String"  resultType="com.hospital.server.pojo.OrderUser">
+        select *
+        from reserve_info
+        where user_id = #{user_id}
+    </select>
+
+
+    <insert id="inserRegistInfo" parameterType="com.hospital.server.pojo.RegistInfo" useGeneratedKeys="true" keyProperty="registInfo.id" >
+        insert
+        into register_info (register_id,reserve_id,staff_id,user_id,create_time)
+        values (#{registInfo.register_id},#{registInfo.reserve_id},#{registInfo.staff_id},#{registInfo.user_id},now())
+    </insert>
+
+</mapper>

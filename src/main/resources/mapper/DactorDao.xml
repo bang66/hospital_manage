@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hospital.server.dao.DoctorDao">
+
+    <select id="getRegistList"   resultType="java.lang.String">
+        select a.user_name
+        from reserve_info b
+        inner join user_info a
+        on a.user_id = b.user_id
+        where b.staff_id = #{staff_id}
+        and reserve_status = 'SUCCESS'
+        and reserve_time like "%"#{reserve_time}"%"
+        order by b.reserve_time asc
+    </select>
+
+    <select id="getUserMsg" resultType="com.hospital.server.pojo.UserMsg">
+        select a.user_id, b.register_id,c.reserve_time
+        from register_info b
+        inner join  user_info a
+        on a.user_id = b.user_id
+        inner join reserve_info c
+        on a.user_id = c.user_id
+        where a.user_name = #{user_name}
+        and c.reserve_status = 'SUCCESS'
+        and b.staff_id = #{staff_id};
+    </select>
+
+    <select id="getUserIdByName" resultType="java.lang.String">
+        select user_id
+        from user_info
+        where user_name = #{user_name}
+    </select>
+
+    <update id="updateWait" parameterType="java.lang.String">
+        update register_info
+        set treat_status = 'FINISH'
+        where user_id = #{user_id}
+        and staff_id = #{staff_id}
+    </update>
+
+    <insert id="insertIllness" parameterType="com.hospital.server.pojo.Illness">
+        insert into illness_info
+        (illness_id, register_id, user_id, illness_desc, medical_id_num, total_money, pay_status, illness_time, create_time, treat_id_num, latest_status)
+        values (#{illness_id}, #{register_id}, #{user_id}, #{illness_desc}, #{medical_id_num}, #{total_money}, 'UNPAY', #{illness_time}, now(),  #{treat_id_num}, 'NEW')
+    </insert>
+
+
+<!--    <insert id="inserRegistInfo" parameterType="com.hospital.server.pojo.RegistInfo" useGeneratedKeys="true" keyProperty="registInfo.id" >-->
+<!--        insert-->
+<!--        into register_info (register_id,reserve_id,staff_id,user_id,create_time)-->
+<!--        values (#{registInfo.register_id},#{registInfo.reserve_id},#{registInfo.staff_id},#{registInfo.user_id},now())-->
+<!--    </insert>-->
+
+</mapper>

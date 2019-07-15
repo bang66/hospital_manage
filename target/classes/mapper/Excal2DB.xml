@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hospital.server.dao.Excal2DB">
+
+    <insert id="excalStaff2DB" parameterType="com.hospital.server.pojo.Staff">
+        insert
+        into staff_info (staff_id,staff_name,staff_sex,staff_bir,staff_tel,staff_img,staff_pos,staff_entry,create_time)
+        values (#{staff_id},#{staff_name},#{staff_sex},#{staff_bir},#{staff_tel},#{staff_img},#{staff_pos},#{staff_entry},now())
+    </insert>
+
+    <insert id="excalMedical2DB" parameterType="com.hospital.server.pojo.Medical">
+
+        insert
+        into medical_info (medical_id,medical_name,medical_desc,medical_price,produce_time,save_time,current_num,create_time)
+        values (#{medical_id},#{medical_name},#{medical_desc},#{medical_price},#{produce_time},#{save_time},#{current_num},now())
+    </insert>
+
+    <insert id="excalDep2DB" parameterType="com.hospital.server.pojo.Dep_info">
+        insert
+        into dep_info (cli_id,dep_id,dep_name,dep_master,create_time)
+        values (#{cli_id},#{dep_id},#{dep_name},#{dep_master},now())
+    </insert>
+
+</mapper>

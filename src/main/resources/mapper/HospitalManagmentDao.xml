@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hospital.server.dao.HospitalManagerDao">
+
+    <insert id="insertApprove" parameterType="com.hospital.server.pojo.PurchaseInfo" >
+        insert
+        into purchase_info (medical_id,medical_num,approve_status,staff_id,create_time)
+        values (#{medical_id},#{medical_num},#{approve_status},#{staff_id},now())
+    </insert>
+
+    <select id="searchApprove" parameterType="java.lang.String" resultType="com.hospital.server.pojo.PurchaseInfo">
+        select *
+        from purchase_info
+        where staff_id = #{staffId}
+    </select>
+</mapper>

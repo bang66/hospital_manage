@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hospital.server.dao.ClinicManagerDao">
+
+    <update id="checkApprove" parameterType="java.lang.String" >
+        update purchase_info
+        set approve_status = 'TRUE'
+        where id = #{id}
+    </update>
+
+    <select id="searchApprove" parameterType="java.lang.String" resultType="com.hospital.server.pojo.PurchaseInfo">
+        select *
+        from purchase_info
+        where staff_id = #{staffId} and approve_status = 'FALSE'
+    </select>
+</mapper>
